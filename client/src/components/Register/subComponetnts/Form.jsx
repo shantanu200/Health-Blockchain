@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { AiFillReconciliation } from "react-icons/ai";
+import axios from "axios";
 import { cities, countries, relation, states } from "../../../api/list";
 import { BiReset, BiSave } from "react-icons/bi";
 import { BsGenderFemale, BsGenderMale } from "react-icons/bs";
@@ -66,7 +66,7 @@ const Form = () => {
     gender: "",
     dateofbirth: "",
     email: "",
-    country: "",
+    country: "India",
     state: "",
     city: "",
     houseno: "",
@@ -76,7 +76,7 @@ const Form = () => {
 
   const [guardian, setGuardian] = useState({
     fullname: "",
-    relationship: "",
+    relationship: "Father",
     contactno: "",
     errors: {
       fullname: "",
@@ -242,49 +242,105 @@ const Form = () => {
   };
 
   const handleEmpty = (obj) => {
+    let flag = false;
     for (var keys in obj) {
       if (obj[keys] === "") {
         isEmpty[keys] = true;
+        flag = true;
       }
     }
+    return flag;
   };
 
   const handleEmptyGuard = (obj) => {
+    let flag = false;
     for (var keys in obj) {
       if (obj[keys] === "") {
         isGuardEmpty[keys] = true;
+        flag = true;
       }
     }
+
+    return flag;
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
     setLoading(true);
-    handleEmpty(user);
-    handleEmptyGuard(guardian);
-    let fullname = user.firstname + " " + user.middlename + " " + user.lastname;
-    try {
-      await auth.methods
-        .createUser(
-          fullname,
-          user.aadharno,
-          user.email,
-          user.contactno,
-          user.gender,
-          user.dateofbirth,
-          user.address
-        )
-        .send({ from: accounts });
-        
-    } catch (err) {
-      console.log(err.message);
+    if (handleEmpty(user) || handleEmptyGuard(guardian)) {
+      Swal.fire({
+        title: "Empty Fields",
+        text: "Please enter all details",
+        icon: "error",
+      });
+    } 
+    else if(!isSelected){
+      Swal.fire({
+        title: "Not Accepted",
+        text: "Please accept the filled data",
+        icon: "error",
+      });
     }
-    setLoading(false);
+    else {
+      let fullname =
+        user.firstname + " " + user.middlename + " " + user.lastname;
+      try {
+        const postData = {
+          firstname: user.firstname,
+          middlename: user.middlename,
+          lastname: user.lastname,
+          aadharno: user.aadharno,
+          contactno: user.contactno,
+          email: user.email,
+          gender: user.gender,
+          dateofbirth: user.dateofbirth,
+          address: {
+            country: user.country,
+            state: user.state,
+            city: user.city,
+            houseno: user.houseno,
+            pincode: user.pincode,
+            fulladdress: user.address,
+          },
+          profile: file,
+          guardian: {
+            fullname: guardian.fullname,
+            relationship: guardian.relationship,
+            contactno: guardian.contactno,
+          },
+          accountHash: accounts,
+        };
+
+        const data = await axios.post("http://localhost:6969/user", postData);
+
+        window.localStorage.setItem("Profile",JSON.stringify(data.data));
+
+        await auth.methods
+          .createUser(
+            fullname,
+            user.aadharno,
+            user.email,
+            user.contactno,
+            user.gender,
+            user.dateofbirth,
+            user.address
+          )
+          .send({ from: accounts });
+      } catch (err) {
+        Swal.fire({
+          ttile: "Error",
+          text: data.data,
+          icon: "error",
+        });
+      }
+      setLoading(false);
+    }
   };
 
   const RenderError = (err) => {
     return <p className="p-1 text-red-600">{err}</p>;
   };
+
   return (
     <section className="p-4 m-8 overflow-auto">
       <form className="flex flex-col space-y-6">
@@ -619,7 +675,7 @@ const Form = () => {
           <input
             type={"checkbox"}
             className="mr-2"
-            onChange={() => setIsSelected(!isSelected)}
+            onChange={() => {setIsSelected(!isSelected)}}
           />
           <span
             className={`capitalize ${

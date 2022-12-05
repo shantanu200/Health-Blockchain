@@ -845,8 +845,46 @@ const cities = [
   "Zunheboto",
 ];
 
-const states = ["Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];
+const states = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+];
 
-const relation = ["Father","Mother","Other"]
+const relation = ["Father", "Mother", "Other"];
 
-export { countries,cities,states,relation};
+const docqualification = [
+  "MBBS – Bachelor of Medicine, Bachelor of Surgery",
+  "BDS – Bachelor of Dental Surgery",
+  "BAMS – Bachelor of Ayurvedic Medicine and Surgery",
+  "BUMS – Bachelor of Unani Medicine and Surgery",
+  "BHMS – Bachelor of Homeopathy Medicine and Surgery",
+  "BYNS - Bachelor of Yoga and Naturopathy Sciences",
+  "B.V.Sc & AH - Bachelor of Veterinary Sciences and Animal Husbandry",
+];
+
+export { countries, cities, states, relation,docqualification };

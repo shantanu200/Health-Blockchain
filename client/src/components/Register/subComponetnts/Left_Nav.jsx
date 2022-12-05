@@ -5,10 +5,11 @@ import {AiFillHome,AiFillSetting} from "react-icons/ai";
 import {FaUser} from "react-icons/fa";
 import {IoDocument} from "react-icons/io5";
 import {BsChatSquareFill} from "react-icons/bs";
+import {GiHealthNormal} from "react-icons/gi";
 import userAvatar from "../../../Test/images/useravatar.jpg";
 
 
-const Left_Nav = ({ profile }) => {
+const Left_Nav = ({ profile,setStep }) => {
   const RenderHeader = () => {
     return (
       <h1 className="flex items-center text-2xl p-4 font-bold uppercase border-b-2 border-white ">
@@ -39,30 +40,34 @@ const Left_Nav = ({ profile }) => {
 
   const RenderLinks = () => {
     return (
-      <ul className="list-none text-lg m-8 flex items-start justify-center flex-col">
+      <ul className="list-none text-lg m-8 flex items-start justify-center flex-col cursor-pointer">
         <li className="my-4 flex items-center hover:text-[#63c5da] hover:scale-105 duration-300">
           <AiFillHome className="mr-2" />
-          <a href="/" className="">Home</a>
+          <a  onClick={() => setStep(1)} className="">Home</a>
         </li>
         <li className="my-4 flex items-center hover:text-[#63c5da] hover:scale-105 duration-300">
           <FaUser className="mr-2" />
-          <a href="/">Health Form</a>
+          <a onClick={() => setStep(2)}>Health Form</a>
+        </li>
+        <li className="my-4 flex items-center hover:text-[#63c5da] hover:scale-105 duration-300">
+          <GiHealthNormal className="mr-2" />
+          <a onClick={() => setStep(3)}>Doctor</a>
         </li>
         <li className="my-4 flex items-center hover:text-[#63c5da] hover:scale-105 duration-300">
           <IoDocument className="mr-2" />
-          <a href="/appointment">Appointment</a>
+          <a  onClick={() => setStep(3)}>Appointment</a>
         </li>
         <li className="my-4 flex items-center hover:text-[#63c5da] hover:scale-105 duration-300">
           <BsChatSquareFill className="mr-2" />
-          <a href="/chats">Chats</a>
+          <a  onClick={() => setStep(4)}>Chats</a>
         </li>
         <li className="my-4 flex items-center hover:text-[#63c5da] hover:scale-105 duration-300">
           <AiFillSetting className="mr-2" />
-          <a href="/setting">Settings</a>
+          <a  onClick={() => setStep(5)}>Settings</a>
         </li>
         <li className="my-4 flex items-center hover:text-[#63c5da] hover:scale-105 duration-300">
           <FiLogOut className="mr-2" />
-          <a href="/logout">Logout</a>
+          <a  onClick={() => setStep(6)}>Logout</a>
         </li>
       </ul>
     );
