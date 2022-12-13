@@ -52,6 +52,9 @@ const UserSchema = new mongoose.Schema({
   },
   otp:{
     type:String
+  },
+  MedicalDetails:{
+    type:Array
   }
 });
 

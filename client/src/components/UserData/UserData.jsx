@@ -36,14 +36,14 @@ const UserData = ({ setStep }) => {
   };
   const UserComp = () => {
     return (
-      <section className="select-none flex flex-col justify-center ml-8 w-full">
+      <section className="select-none flex flex-col justify-center ml-8">
         <div className="flex flex-col items-center mt-4 ">
           <img
             alt=""
             src={Profile.profile}
             className="w-32 h-32 border rounded-full border-black"
           />
-          <div className="w-full mt-4">
+          <div className="w-full m-4">
             <h1 className="text-2xl font-bold hover:underline duration-200 my-4">
               Personal Details
             </h1>

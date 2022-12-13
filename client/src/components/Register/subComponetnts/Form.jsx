@@ -273,6 +273,7 @@ const Form = () => {
         text: "Please enter all details",
         icon: "error",
       });
+      setLoading(false);
     } 
     else if(!isSelected){
       Swal.fire({

@@ -1,18 +1,21 @@
 import React from 'react'
 import { useState } from 'react'
-import { DoctorProfile, Profile } from '../../api/api'
+import { DoctorProfile, localStep, Profile } from '../../api/api'
 import { data } from '../../api/data'
 import DocData from '../Doctor/DocData'
 import DocLogin from '../Doctor/DocLogin'
 import DocRegister from '../Doctor/DocRegister'
 import Search from '../SearchPatient/Search'
+import UserCard from '../UserCard/UserCard'
 import UserData from '../UserData/UserData'
+import UserProfile from '../UserProfile/UserProfile'
 import Form from './subComponetnts/Form'
 import Left_Nav from './subComponetnts/Left_Nav'
 import Right_Nav from './subComponetnts/Right_Nav'
 
 const Box = () => {
-  const [step,setStep] = useState(1);
+  
+  const [step,setStep] = useState(localStep);
 
  
   const RenderComponent = () => {
@@ -53,14 +56,22 @@ const Box = () => {
       
       case 10:
         //Search Patient User
-        return <Search />
+        return <Search setStep={setStep} />
       
+      case 11:
+        return <UserProfile />
+
+      case 12:
+        return <UserCard />
     }
   }
+  
+  window.localStorage.setItem("state",step);
+
   return (
-    <div className='bg-white w-10/12 rounded-lg flex m-8'>
-    <Left_Nav profile={data} setStep={setStep} />
-    <div className='w-full md:w-2/3'>
+    <div className='bg-white w-10/12 rounded-lg flex md:flex-row flex-col m-8'>
+    <Left_Nav profile={Profile} setStep={setStep} />
+    <div className='w-full'>
         {RenderComponent()}
     </div>
     </div>

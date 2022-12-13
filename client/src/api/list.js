@@ -887,4 +887,14 @@ const docqualification = [
   "B.V.Sc & AH - Bachelor of Veterinary Sciences and Animal Husbandry",
 ];
 
-export { countries, cities, states, relation,docqualification };
+const diseases = [
+  "Sugar",
+  "High Blood Pressure",
+  "Cancer",
+  "High Cholesterol",
+  "Blood Disease"
+];
+
+const bloodGroups = ["Select Blood Group","A positive (A+)", "A negative (A-)", "B positive (B+)", "B negative (B-)", "O positive (O+)", "O negative (O-)", "AB positive (AB+)", "AB negative (AB-)"];
+
+export { countries, cities, states, relation,docqualification,bloodGroups,diseases };

@@ -118,12 +118,97 @@ export const VerifyEmail = asyncHandler(async (req, res) => {
   }
 });
 
-export const DeleteUser = asyncHandler(async (req,res) => {
+export const DeleteUser = asyncHandler(async (req, res) => {
   let _id = req.params.id;
 
-  User.findByIdAndRemove(_id,(err,user) => {
-    if(err) res.status(400).json(err);
-
+  User.findByIdAndRemove(_id, (err, user) => {
+    if (err) res.status(400).json(err);
     else res.status(200).json("User Deleted Sucessfully");
   });
+});
+
+export const QuerySearch = asyncHandler(async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { firstname: { $regex: req.query.search, $options: "i" } },
+          { middlename: { $regex: req.query.search, $options: "i" } },
+          { lastname: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+          { aadharno: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+
+  const users = await User.find(keyword);
+
+  if (users) res.status(200).json(users);
+  else {
+    res.status(400);
+    throw new Error("Invalid Queries");
+  }
+});
+
+export const fetchSingleUser = asyncHandler(async (req, res) => {
+  let id = req.params.id;
+
+  const user = await User.findOne({ _id: id });
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(400);
+    throw new Error("Invaild Query ID is passed");
+  }
+});
+
+export const medicalDetails = asyncHandler(async (req, res) => {
+  let id = req.params.id;
+
+  if (!req.body) {
+    res.status(400);
+    throw new Error("Query Data is not reached");
+  }
+
+  const {
+    bloodGroup,
+    diseases,
+    medication,
+    operationDetails,
+    medicalReports,
+    specialCare,
+  } = req.body;
+
+  const userExists = await User.findOne({ _id: id });
+
+  if (userExists) {
+    userExists.MedicalDetails.push(req.body);
+
+    userExists
+      .save()
+      .then(() => {
+        res.status(200).json(userExists);
+      })
+      .catch((error) => {
+        res.status(400);
+        throw new Error(`Error ${error}`);
+      });
+  } else {
+    res.status(400);
+    throw new Error(`No user found by ID - ${id}`);
+  }
+});
+
+
+export const getMedicalRecord = asyncHandler(async(req,res) => {
+  let id = req.params.id;
+
+  const userExists = await User.findOne({_id:id});
+
+  if(userExists){
+    res.status(200).json(userExists.MedicalDetails);
+  }else{
+    res.status(400);
+    throw new Error("Server side error");
+  }
 })

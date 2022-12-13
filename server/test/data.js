@@ -33,3 +33,39 @@ let doctorDumm = {
   "email":"shantanubhusari@gmail.com",
   "certificate":"#error#"
 }
+
+let MedicalDetails = {
+    "bloodGroup": "A positive (A+)",
+    "diseases": [
+        {
+            "disease": "Sugar",
+            "status0": "true"
+        },
+        {
+            "disease": "High Blood Pressure",
+            "status1": "true"
+        },
+        {
+            "disease": "Cancer",
+            "status2": "true"
+        },
+        {
+            "disease": "High Cholesterol",
+            "status3": "false"
+        },
+        {
+            "disease": "Blood Disease",
+            "status4": "false"
+        }
+    ],
+    "medication": [
+        {
+            "name": "Paracitamol",
+            "dose": "200mg"
+        }
+    ],
+    "operationDetails": "Nothing",
+    "medicalReport": [],
+    "specailCare": "Nothing"
+
+}
