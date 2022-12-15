@@ -110,11 +110,13 @@ export const VerifyEmail = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && user.otp === otp) {
-    res.status(200).json("Email Verified Successfully");
+    res.status(200).json({msg:"Email Verified Successfully",user});
   } else if (!user) {
-    res.status(200).json("User not found on these email");
+    res.status(400);
+    throw new Error("User not found on these email");
   } else {
-    res.status(200).json("Invaild OTP is Entered");
+    res.status(400);
+    throw new Error("Invalid OTP is entered");
   }
 });
 
@@ -199,16 +201,15 @@ export const medicalDetails = asyncHandler(async (req, res) => {
   }
 });
 
-
-export const getMedicalRecord = asyncHandler(async(req,res) => {
+export const getMedicalRecord = asyncHandler(async (req, res) => {
   let id = req.params.id;
 
-  const userExists = await User.findOne({_id:id});
+  const userExists = await User.findOne({ _id: id });
 
-  if(userExists){
+  if (userExists) {
     res.status(200).json(userExists.MedicalDetails);
-  }else{
+  } else {
     res.status(400);
     throw new Error("Server side error");
   }
-})
+});

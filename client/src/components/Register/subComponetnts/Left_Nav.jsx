@@ -9,7 +9,7 @@ import {
   AiOutlineSearch,
 } from "react-icons/ai";
 import { FaUser } from "react-icons/fa";
-import { IoDocument, IoSearchSharp } from "react-icons/io5";
+import { IoDocument, IoLogInSharp, IoSearchSharp } from "react-icons/io5";
 import { BsChatSquareFill } from "react-icons/bs";
 import { GiHealthNormal } from "react-icons/gi";
 import userAvatar from "../../../Test/images/useravatar.jpg";
@@ -112,7 +112,7 @@ const Left_Nav = ({ profile, setStep }) => {
       </div>
     </nav>
   ) : (
-    <nav className="bg-[#0a1172] text-white rounded-l-lg p-4 flex flex-col items-center">
+    <nav className="hidden bg-[#0a1172] text-white rounded-l-lg p-4 md:flex flex-col items-center">
       <div>
         <AiOutlineMenu
           className="mx-4 text-3xl my-2 hover:scale-105 hover:text-blue-400 duration-200 "
@@ -122,6 +122,7 @@ const Left_Nav = ({ profile, setStep }) => {
       <div className="my-8 p-4">
       <AiFillIdcard className="text-2xl my-8 hover:scale-105 duration-200 hover:text-blue-400 cursor-pointer" onClick={() => setStep(12)} />
       <AiFillHome className="text-2xl my-8 hover:scale-105 duration-200 hover:text-blue-400 cursor-pointer" onClick={() => setStep(1)} />
+      <IoLogInSharp className="text-2xl my-8 hover:scale-105 duration-200 hover:text-blue-400 cursor-pointer" onClick={() => setStep(13)}  />
       <FaUser className="text-2xl my-8 hover:scale-105 duration-200 hover:text-blue-400 cursor-pointer" onClick={() => setStep(2)}/>
       <GiHealthNormal className="text-2xl my-8 hover:scale-105 duration-200 hover:text-blue-400 cursor-pointer" onClick={() => setStep(3)}/>
       <IoSearchSharp className="text-2xl my-8 hover:scale-105 duration-200 hover:text-blue-400 cursor-pointer" onClick={() => setStep(10)}/>

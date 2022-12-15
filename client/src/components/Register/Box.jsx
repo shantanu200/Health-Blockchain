@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { DoctorProfile, localStep, Profile } from '../../api/api'
 import { data } from '../../api/data'
 import DocData from '../Doctor/DocData'
@@ -9,15 +10,22 @@ import Search from '../SearchPatient/Search'
 import UserCard from '../UserCard/UserCard'
 import UserData from '../UserData/UserData'
 import UserProfile from '../UserProfile/UserProfile'
+import Login from './Login'
 import Form from './subComponetnts/Form'
 import Left_Nav from './subComponetnts/Left_Nav'
 import Right_Nav from './subComponetnts/Right_Nav'
 
 const Box = () => {
-  
-  const [step,setStep] = useState(localStep);
 
- 
+  const location = useLocation();
+
+  const path = location.pathname;
+
+  console.log(path)
+  
+  const [step,setStep] = useState(path.includes("user") ? 11 : localStep);
+  
+
   const RenderComponent = () => {
     let choice = step;
 
@@ -30,6 +38,7 @@ const Box = () => {
       //User Form for New Registration
       return <><Right_Nav /><Form /></>
       
+
       case 3:
         //Doctor Form / Doctor Profile
         return DoctorProfile ? <DocData setStep={setStep} /> : <DocRegister setStep={setStep} />;
@@ -63,6 +72,9 @@ const Box = () => {
 
       case 12:
         return <UserCard />
+
+      case 13:
+        return  <Login setStep={setStep} /> 
     }
   }
   
